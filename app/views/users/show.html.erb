@@ -1,0 +1,104 @@
+<div class="container my-5">
+  <div class="row mb-4">
+    <div class="col-md-4 d-flex justify-content-center align-items-center">
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.profile_image.variant(resize_to_fill: [150, 150]), 
+                      alt: "Profile Image",
+                      class: "rounded-circle",
+                      style: "width:150px; height:150px; object-fit:cover;" %>
+      <% else %>
+        <%= image_tag "https://tse2.mm.bing.net/th?id=OIP.MNYMRopweKA9axhd73z_GwHaE8&pid=Api&P=0&h=180",
+                      alt: "Default Profile",
+                      class: "rounded-circle",
+                      style: "width:150px; height:150px; object-fit:cover;" %>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <h2><%= @user.first_name %> <%= @user.last_name %></h2>
+      <p>Email: <%= @user.email %></p>
+    </div>
+  </div>
+
+  <hr>
+  <input type="hidden" id="active-tab" value="<%= @active_tab %>">
+  <div class="container my-5">
+    <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="recommended-tab" data-bs-toggle="tab" data-bs-target="#recommended" type="button" role="tab" aria-controls="recommended" aria-selected="true">
+          Recommended Books
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="recommend-tab" data-bs-toggle="tab" data-bs-target="#recommend" type="button" role="tab" aria-controls="recommend" aria-selected="false">
+          Recommend Book
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="add-tab" data-bs-toggle="tab" data-bs-target="#add" type="button" role="tab" aria-controls="add" aria-selected="false">
+          Add Book
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button" role="tab">All Books</button>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-3">
+    <!-- Recommended Books Tab -->
+    <div class="tab-pane fade show active" id="recommended" role="tabpanel" aria-labelledby="recommended-tab">
+      <div class="container-fluid bg-white p-4 shadow rounded">
+      <h3 class="mb-4 text-center">Books You Recommended</h3>               
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+          <% @user.recommendations.each do |recommendation| %>
+            <div class="col">
+              <div class="card shadow-sm border rounded-3 h-100 position-relative">
+          
+                <% if recommendation.book.book_image.attached? %>
+                  <div class="d-flex justify-content-center align-items-center p-4" style="height: 180px;">
+                    <%= image_tag(
+                          recommendation.book.book_image,
+                          alt: "Book Cover",
+                          class: "rounded-circle",
+                          style: "width: 100px; height: 100px; object-fit: cover;"
+                        ) %>
+                  </div>
+                <% else %>
+                  <div class="d-flex justify-content-center align-items-center p-4" style="height: 180px;">
+                    <h1 class="display-4 text-muted" style="opacity: 0.2;"><%= recommendation.book.title.first %></h1>
+                  </div>
+                <% end %>
+                          
+                <div class="card-body text-center">
+                  <h5 class="card-title mb-1"><%= recommendation.book.title %></h5>
+                  <p class="card-text text-muted mb-1"><%= truncate(recommendation.review, length: 100) %></p>
+                  <p class="card-text text-muted mb-1">
+                    <span class="badge bg-secondary">by <%= recommendation.book.author %></span>
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted">Votes: <%= recommendation.vote_count || 0 %></small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommend Book Form Tab -->
+    <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
+      <%= render "recommendations/new", recommendation: Recommendation.new %>
+    </div>
+
+    <!-- Add Book Form Tab -->
+    <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add-tab">
+      <%= render "books/new", book: Book.new %>
+    </div>
+
+    <!-- Books Panel -->
+    <div class="tab-pane fade" id="books" role="tabpanel" aria-labelledby="books-tab">
+      <%= render "books/index", books: @books %>
+    </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="container-fluid bg-white p-4 shadow rounded">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    <% @recommendations.each do |recommendation| %>
+      <div class="col">
+        <div class="card shadow-sm border rounded-3 h-100 position-relative">
+          
+          <% if recommendation.book.book_image.attached? %>
+            <div class="d-flex justify-content-center align-items-center p-4" style="height: 180px;">
+              <%= image_tag(
+                    recommendation.book.book_image,
+                    alt: "Book Cover",
+                    class: "rounded-circle",
+                    style: "width: 100px; height: 100px; object-fit: cover;"
+                  ) %>
+            </div>
+          <% else %>
+            <div class="d-flex justify-content-center align-items-center p-4" style="height: 180px;">
+              <h1 class="display-4 text-muted" style="opacity: 0.2;"><%= recommendation.book.title.first %></h1>
+            </div>
+          <% end %>
+
+          <div class="card-body text-center">
+            <h5 class="card-title mb-1"><%= recommendation.book.title %></h5>
+            <p class="card-text text-muted mb-1"><%= truncate(recommendation.review, length: 100) %></p>
+            <p class="card-text text-muted mb-1">
+              <span class="badge bg-secondary">by <%= recommendation.book.author %></span>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">Recommended by <strong><%= recommendation.user.first_name %></strong></small>
+            </p>
+            <p class="card-text">
+              <small class="text-muted">Votes: <%= recommendation.vote_count %></small>
+            </p>
+                                
+            <%= button_to "Vote", recommendation_votes_path(recommendation), method: :post, class: "btn btn-sm btn-outline-primary", disabled: recommendation.votes.exists?(user: current_user) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

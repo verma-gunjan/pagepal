@@ -1,0 +1,33 @@
+<div class="container-fluid bg-white p-4 shadow rounded">
+  <h3 class="mb-4 text-center">Books</h3>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    <% books.each do |book| %>
+      <div class="col">
+        <div class="card shadow-sm border rounded-3 h-100 position-relative">
+          
+          <% if book.book_image.attached? %>
+            <div class="d-flex justify-content-center align-items-center p-4" style="height: 180px;">
+              <%= image_tag(book.book_image, 
+                alt: "Book Cover", 
+                class: "rounded-circle", 
+                style: "width: 100px; height: 100px; object-fit: cover;") %>
+            </div>
+          <% else %>
+            <div class="d-flex justify-content-center align-items-center p-4" style="height: 180px;">
+              <h1 class="display-4 text-muted" style="opacity: 0.2;"><%= book.title.first %></h1>
+            </div>
+          <% end %>
+
+          <div class="card-body text-center">
+            <h5 class="card-title mb-1"><%= book.title %></h5>
+            <p class="card-text text-muted mb-1"><%= book.author %></p>
+            <p class="card-text">
+              <span class="badge bg-secondary"><%= book.categories.first&.title || "N/A" %></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
