@@ -1,13 +1,13 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
-
   def create
     @book = Book.new(book_params)
-
     if @book.save
-      redirect_to @book, notice: "Book was successfully created."
+      redirect_to user_path(current_user), notice: 'Book added successfully.'
     else
-      render :new, status: :unprocessable_entity
+      flash[:tab] = 'add'
+      flash[:errors] = @book.errors.full_messages
+      redirect_to user_path(current_user)
     end
   end
 

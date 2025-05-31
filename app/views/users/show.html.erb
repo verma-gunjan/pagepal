@@ -1,0 +1,85 @@
+<div class="container my-5">
+  <div class="row mb-4">
+    <div class="col-md-4 d-flex justify-content-center align-items-center">
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.profile_image.variant(resize_to_fill: [150, 150]), 
+                      alt: "Profile Image",
+                      class: "rounded-circle",
+                      style: "width:150px; height:150px; object-fit:cover;" %>
+      <% else %>
+        <%= image_tag "https://tse2.mm.bing.net/th?id=OIP.MNYMRopweKA9axhd73z_GwHaE8&pid=Api&P=0&h=180",
+                      alt: "Default Profile",
+                      class: "rounded-circle",
+                      style: "width:150px; height:150px; object-fit:cover;" %>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <h2><%= @user.first_name %> <%= @user.last_name %></h2>
+      <p>Email: <%= @user.email %></p>
+    </div>
+  </div>
+
+  <hr>
+  <input type="hidden" id="active-tab" value="<%= @active_tab %>">
+  <div class="container my-5">
+    <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="recommended-tab" data-bs-toggle="tab" data-bs-target="#recommended" type="button" role="tab" aria-controls="recommended" aria-selected="true">
+          Recommended Books
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="recommend-tab" data-bs-toggle="tab" data-bs-target="#recommend" type="button" role="tab" aria-controls="recommend" aria-selected="false">
+          Recommend Book
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="add-tab" data-bs-toggle="tab" data-bs-target="#add" type="button" role="tab" aria-controls="add" aria-selected="false">
+          Add Book
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-3">
+    <!-- Recommended Books Tab -->
+    <div class="tab-pane fade show active" id="recommended" role="tabpanel" aria-labelledby="recommended-tab">
+      <% @user.recommendations.each do |recommendation| %>
+        <div class="card mb-3 shadow-sm" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <% if recommendation.book.book_image.attached? %>
+                <%= image_tag recommendation.book.book_image.variant(resize_to_fill: [180, 180]),
+                              class: "img-fluid rounded-start",
+                              style: "object-fit: cover;" %>
+              <% else %>
+                <%= image_tag "https://via.placeholder.com/180x180?text=No+Image",
+                              class: "img-fluid rounded-start",
+                              style: "object-fit: cover;" %>
+              <% end %>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%= recommendation.book.title %></h5>
+                <p class="card-text"><%= truncate(recommendation.review, length: 100) %></p>
+                <p class="card-text">
+                  <small class="text-muted">Votes: <%= 0 %></small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Recommend Book Form Tab -->
+    <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
+      <%= render "recommendations/new", recommendation: Recommendation.new %>
+    </div>
+
+    <!-- Add Book Form Tab -->
+    <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add-tab">
+      <%= render "books/new", book: Book.new %>
+    </div>
+    </div>
+  </div>
+</div>
