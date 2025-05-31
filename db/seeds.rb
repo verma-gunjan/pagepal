@@ -4,6 +4,7 @@
 #
 # Example:
 #
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+  ["Action", "Comedy", "Drama", "Horror", "fantasy", "biography", "science fiction", "realastic fiction", "speech", "self help", "fairytale"].each do |book_categories|
+    Category.find_or_create_by!(title: book_categories)
+  end
+

@@ -1,0 +1,22 @@
+<%= render partial: "navbar" %>
+<h1>Recommendations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Recommended By</th>
+      <th>Book</th>
+      <th>Review</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recommendations.each do |recommendation| %>
+      <tr>
+        <td><%= recommendation.user.first_name %></td>
+        <td><%= recommendation.book.title %></td>
+        <td><%= recommendation.review.presence || "No review" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
