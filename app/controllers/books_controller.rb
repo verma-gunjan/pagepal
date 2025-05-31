@@ -12,12 +12,12 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.includes(:categories).all
+    @books = Book.includes(:categories, :book_image_attachment).all
   end
 
   private
 
   def book_params
-    params.require(:book).permit(:title, :author, category_id: params[:book][:category_id])
+    params.require(:book).permit(:title, :author, :book_image, category_ids: [])
   end
 end

@@ -15,5 +15,8 @@ Rails.application.routes.draw do
   root "recommendations#index"
   resources :users, only: [:show] 
   resources :recommendations, only: [:new, :create]
-  resources :books, only: [:new, :create]
+  resources :books, only: [:new, :create, :index]
+  resources :recommendations do
+    resources :votes, only: [:create]
+  end
 end
