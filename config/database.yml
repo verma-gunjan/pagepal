@@ -19,15 +19,3 @@ production:
   database: pagepal_production
   username: postgres_prod
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
-  connects_to:
-    database:
-      writing:
-        adapter: postgresql
-        database: pagepal_production
-        username: postgres_prod
-        password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
-      cable:
-        adapter: postgresql
-        database: pagepal_cable_production
-        username: postgres_prod
-        password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
