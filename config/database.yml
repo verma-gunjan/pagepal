@@ -18,4 +18,4 @@ production:
   <<: *default
   database: pagepal_production
   username: postgres_prod
-  password: production
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
