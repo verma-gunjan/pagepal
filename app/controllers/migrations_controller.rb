@@ -1,5 +1,6 @@
 class MigrationsController < ApplicationController
-  before_action :authenticate
+  skip_before_action :authenticate_user!, only: [:run_migrations]
+
 
   def run
     # Run migrations using system call
