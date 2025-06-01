@@ -1,0 +1,8 @@
+<%= button_to recommendation_votes_path(recommendation), method: :post, data: { turbo: true }, class: "btn p-0 border-0 bg-transparent", disabled: recommendation.votes.exists?(user: current_user) do %>
+    <% if recommendation.votes.exists?(user: current_user) %>
+      <i class="fas fa-heart text-danger fs-4"></i>
+    <% else %>
+      <i class="far fa-heart text-secondary fs-4"></i>
+    <% end %>
+  <% end %>
+  

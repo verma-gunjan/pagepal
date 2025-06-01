@@ -1,7 +1,12 @@
 <div class="container-fluid bg-white p-5 shadow rounded">
   <h3 class="mb-4 text-center">Post a Book Recommendation</h3>
-
-  <%= form_with(model: recommendation, local: true) do |form| %>
+  <% flash.each do |key, message| %>
+    <div class="alert alert-<%= key == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
+      <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+  <%= form_with(model: recommendation, data: { turbo: true }) do |form| %>
     <div class="mb-3">
       <%= form.label :book_id, "Select Book", class: "form-label" %>
       <%= form.collection_select :book_id, Book.all, :id, :title, { prompt: "Choose a book" }, class: "form-select" %>

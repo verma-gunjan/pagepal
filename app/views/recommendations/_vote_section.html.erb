@@ -1,0 +1,6 @@
+<div id="vote_section_<%= recommendation.id %>" class="d-flex">
+  <%= render "recommendations/vote_button", recommendation: recommendation, current_user: current_user %>
+  <div id="vote_count_<%= recommendation.id %>">
+    <%= render "recommendations/vote_count", recommendation: recommendation %>
+  </div>
+</div>

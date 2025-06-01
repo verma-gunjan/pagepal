@@ -17,13 +17,16 @@ class RecommendationsController < ApplicationController
   end
 
   def index
-    @recommendations = Recommendation.includes(:user, :book)
+    @recommendations = Recommendation.includes(:book)
+                      .left_joins(:votes)
+                      .group('recommendations.id')
+                      .order('COUNT(votes.id) DESC')
   end
 
   private
 
   def recommendation_params
-    params.require(:recommendation).permit(:book_id, :text)
+    params.require(:recommendation).permit(:book_id, :review)
   end
 end
   
