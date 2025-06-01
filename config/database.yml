@@ -15,7 +15,5 @@ test:
   database: pagepal_test
 
 production:
-  <<: *default
-  database: pagepal_production
-  username: postgres_prod
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  pool: 5
