@@ -1,5 +1,5 @@
 class RecommendationsController < ApplicationController
-    before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
 
   def new
     @recommendation = Recommendation.new
