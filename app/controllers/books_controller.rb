@@ -12,7 +12,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.includes(:categories, :book_image_attachment).all
+    @books = Book.includes(:categories, :book_image_attachment).page(params[:page]).per(6)
   end
 
   private

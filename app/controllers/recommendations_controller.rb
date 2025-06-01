@@ -21,6 +21,7 @@ class RecommendationsController < ApplicationController
                       .left_joins(:votes)
                       .group('recommendations.id')
                       .order('COUNT(votes.id) DESC')
+                      .page(params[:page]).per(9)
   end
 
   private

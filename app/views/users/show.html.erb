@@ -23,33 +23,33 @@
   <input type="hidden" id="active-tab" value="<%= @active_tab %>">
   <div class="container my-5">
     <ul class="nav nav-tabs" id="profileTabs" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="recommended-tab" data-bs-toggle="tab" data-bs-target="#recommended" type="button" role="tab" aria-controls="recommended" aria-selected="true">
+      <li class="nav-item " role="presentation">
+        <button class="nav-link <%= 'active' if @active_tab == 'recommended' %>" id="recommended-tab" data-bs-toggle="tab" data-bs-target="#recommended" type="button" role="tab" aria-controls="recommended" aria-selected="true">
           Recommended Books
         </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="recommend-tab" data-bs-toggle="tab" data-bs-target="#recommend" type="button" role="tab" aria-controls="recommend" aria-selected="false">
+        <button class="nav-link <%= 'active' if @active_tab == 'recommend' %>" id="recommend-tab" data-bs-toggle="tab" data-bs-target="#recommend" type="button" role="tab" aria-controls="recommend" aria-selected="false">
           Recommend Book
         </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="add-tab" data-bs-toggle="tab" data-bs-target="#add" type="button" role="tab" aria-controls="add" aria-selected="false">
+        <button class="nav-link <%= 'active' if @active_tab == 'add' %>" id="add-tab" data-bs-toggle="tab" data-bs-target="#add" type="button" role="tab" aria-controls="add" aria-selected="false">
           Add Book
         </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button" role="tab">All Books</button>
+        <button class="nav-link <%= 'active' if @active_tab == 'books' %>" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button" role="tab">All Books</button>
       </li>
     </ul>
 
     <div class="tab-content mt-3">
-    <!-- Recommended Books Tab -->
-    <div class="tab-pane fade show active" id="recommended" role="tabpanel" aria-labelledby="recommended-tab">
+      <!-- Recommended Books Tab -->
+      <div class="tab-pane fade  <%= 'show active' if @active_tab == 'recommended' %>" id="recommended" role="tabpanel" aria-labelledby="recommended-tab">
       <div class="container-fluid bg-white p-4 shadow rounded">
       <h3 class="mb-4 text-center">Books You Recommended</h3>               
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-          <% @user.recommendations.each do |recommendation| %>
+          <% @user_recommendations.each do |recommendation| %>
             <div class="col">
               <div class="card shadow-sm border rounded-3 h-100 position-relative">
           
@@ -81,22 +81,25 @@
           <% end %>
         </div>
       </div>
-    </div>
+      <div class="mt-4 d-flex justify-content-center">
+        <%= paginate @user_recommendations %>
+      </div>
+      </div>
 
-    <!-- Recommend Book Form Tab -->
-    <div class="tab-pane fade" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
+      <!-- Recommend Book Form Tab -->
+      <div class="tab-pane fade <%= 'show active' if @active_tab == 'recommend' %>" id="recommend" role="tabpanel" aria-labelledby="recommend-tab">
       <%= render "recommendations/new", recommendation: Recommendation.new %>
-    </div>
+      </div>
 
-    <!-- Add Book Form Tab -->
-    <div class="tab-pane fade" id="add" role="tabpanel" aria-labelledby="add-tab">
+      <!-- Add Book Form Tab -->
+      <div class="tab-pane fade <%= 'show active' if @active_tab == 'add' %>" id="add" role="tabpanel" aria-labelledby="add-tab">
       <%= render "books/new", book: Book.new %>
-    </div>
+      </div>
 
-    <!-- Books Panel -->
-    <div class="tab-pane fade" id="books" role="tabpanel" aria-labelledby="books-tab">
+      <!-- Books Panel -->
+      <div class="tab-pane fade <%= 'show active' if @active_tab == 'books' %>" id="books" role="tabpanel" aria-labelledby="books-tab">
       <%= render "books/index", books: @books %>
-    </div>
-    </div>
+      </div>
+      </div>
   </div>
 </div>
