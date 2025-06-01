@@ -9,7 +9,7 @@
  * Consider organizing styles into separate files for maintainability.
  */
 .recommend-margin-top{
-    margin-top: 5rem;
+    margin-top: 2rem;
 }
 
 .sign_up{
@@ -18,4 +18,8 @@
 
 .login_up{
     margin-top: 160px;
+}
+
+.margin-top_profile{
+    margin-top: 5rem;
 }

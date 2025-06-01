@@ -1,8 +1,8 @@
-<div class="container my-5">
+<div class="container margin-top_profile">
   <div class="row mb-4">
     <div class="col-md-4 d-flex justify-content-center align-items-center">
       <% if @user.profile_image.attached? %>
-        <%= image_tag @user.profile_image.variant(resize_to_fill: [150, 150]), 
+        <%= image_tag @user.profile_image, 
                       alt: "Profile Image",
                       class: "rounded-circle",
                       style: "width:150px; height:150px; object-fit:cover;" %>
@@ -14,7 +14,7 @@
       <% end %>
     </div>
     <div class="col-md-8">
-      <h2><%= @user.first_name %> <%= @user.last_name %></h2>
+      <h2><%= @user&.first_name.titleize %> <%= @user&.last_name.titleize %></h2>
       <p>Email: <%= @user.email %></p>
     </div>
   </div>
@@ -47,7 +47,11 @@
       <!-- Recommended Books Tab -->
       <div class="tab-pane fade  <%= 'show active' if @active_tab == 'recommended' %>" id="recommended" role="tabpanel" aria-labelledby="recommended-tab">
       <div class="container-fluid bg-white p-4 shadow rounded">
-      <h3 class="mb-4 text-center">Books You Recommended</h3>               
+      <% if @user_recommendations.length == 0   %>
+        <p class="mb-4 text-center">No Recommended Book</p> 
+      <% else %>
+        <h4 class="mb-4 text-center">Books You Recommended</h4> 
+      <% end %>              
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
           <% @user_recommendations.each do |recommendation| %>
             <div class="col">

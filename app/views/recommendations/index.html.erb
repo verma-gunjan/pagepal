@@ -15,11 +15,12 @@
           <% end %>
 
           <div class="card-body p-3 text-center">
-            <h6 class="fw-bold mb-1"><%= recommendation.book.title %></h6>
-            <p class="mb-1">
-              <span class="badge bg-secondary small">by <%= recommendation.book.author %></span>
+            <h6 class="fw-bold mb-1"><%= recommendation.book&.title&.titleize %></h6>
+            <p class="mb-2">
+              <span class="badge bg-dark text-white me-1">by <%= recommendation.book&.author&.titleize %></span>
+              <span class="text-muted">Category: <span class="fw-semibold text-capitalize"><%= recommendation.book.categories&.first&.title %></span></span>
             </p>
-            <small class="text-muted">Recommended by <strong><%= recommendation.user.first_name %></strong></small>
+            <small class="text-muted">Recommended by <strong><%= recommendation.user&.first_name&.titleize %></strong></small>
             <% if recommendation.review.present? %>
               <p class="text-muted small mb-0 truncate-text"><%= truncate(recommendation.review, length: 100) %></p>
             <% end %>
