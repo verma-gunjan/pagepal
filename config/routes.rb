@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "migrations/run"
   get "users/show"
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -19,4 +20,5 @@ Rails.application.routes.draw do
   resources :recommendations do
     resources :votes, only: [:create]
   end
+  get 'run_migrations', to: 'migrations#run'
 end
