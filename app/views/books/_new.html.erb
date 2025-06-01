@@ -1,7 +1,6 @@
 <div class="container-fluid bg-white p-5 shadow rounded">
   <h3 class="mb-4 text-center">Add a New Book</h3>
-
-  <%= form_with(model: book, local: true, html: { multipart: true }) do |form| %>
+  <%= form_with(model: book, data: { turbo: true }) do |form| %>
     <div class="mb-3">
       <%= form.label :title, class: "form-label" %>
       <%= form.text_field :title, class: "form-control" %>
