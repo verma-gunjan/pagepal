@@ -1,6 +1,6 @@
 <%= turbo_stream_from "recommendations" %>
 
-<div class="container my-4">
+<div class="container recommend-margin-top">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     <% @recommendations.each do |recommendation| %>
       <div class="col">
@@ -31,5 +31,8 @@
         </div>
       </div>
     <% end %>
+  </div>
+  <div class="mt-4 d-flex justify-content-center">
+    <%= paginate @recommendations %>
   </div>
 </div>
