@@ -5,7 +5,7 @@
       <% if user_signed_in? %>
         <% if current_user.profile_image.attached? %>
           <%= link_to user_path(current_user), class: "nav-link d-flex align-items-center" do %>
-            <%= image_tag current_user.profile_image.variant(resize_to_fill: [40, 40]),
+            <%= image_tag current_user.profile_image,
                   alt: "Profile",
                   class: "rounded-circle",
                   style: "width:40px; height:40px; object-fit:cover;" %>
@@ -30,3 +30,8 @@
     <% end %>
   </div>
 </nav>
+<% if current_page?(root_path) %>
+<div class="bg-light py-1 border-bottom text-center mt-5 pt-2">
+  <p class="mb-0 fw-semibold text-dark">Recommended Books</p>
+</div>
+<% end %>
