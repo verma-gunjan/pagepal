@@ -20,5 +20,4 @@ Rails.application.routes.draw do
   resources :recommendations do
     resources :votes, only: [:create]
   end
-  get 'run_migrations', to: 'migrations#run'
 end
